@@ -44,7 +44,20 @@
         var geoError = function(position) {
           console.log('Error occurred. Error code: ' + error.code);
         };
-        navigator.geolocation.getCurrentPosition(geoSuccess, geoError);        
+        navigator.geolocation.getCurrentPosition(geoSuccess, geoError);     
+
+        // 初始化 TimePicker
+        var options = {
+          fromNow: 300*1000,
+          twelveHour: false,
+          i18n: {
+            'done': "確認",
+            'clear': "清除",
+            'cancel': "放棄",
+          }
+        };
+        var elems = document.querySelector('#launch_time');
+        var timepicker = M.Timepicker.init(elems, options);
 
       };
     </script>
@@ -91,6 +104,32 @@
               />
               <label for="latitude">緯度</label>
             </div>
+            <div class="input-field col s6">
+                <input type="text" class="timepicker" id="launch_time" name="launch_time">
+                <label for="launch_time">收集時間</label>
+                <span
+                  class="helper-text"
+                  data-error="必填欄位"
+                  data-success="right"
+                ></span>
+              </div>
+              <div class="input-field col s6">
+                  <input
+                    placeholder="預定收集筆數"
+                    id="data-count"
+                    name="data"
+                    type="text"
+                    class="validate"
+                    value="1000"
+                    required="true"
+                  />
+                  <label for="data">資料筆數</label>
+                  <span
+                    class="helper-text"
+                    data-error="必填欄位"
+                    data-success="right"
+                  ></span>
+                </div>  
             <div class="input-field col s6">
               <input
                 placeholder="房長"
