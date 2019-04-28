@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!--Import Google Icon Font-->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <title>CSI 訊號資料收集系統</title>
+    <script>
+      window.onload = function() {
+
+        // 設定圖檔轉換 
+        document
+        .getElementById("imageFile1")
+        .addEventListener("change", function() {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+            document.getElementById("imgURI1").value = e.currentTarget.result;
+            document.getElementById("image1").src = e.currentTarget.result;
+          };
+          reader.readAsDataURL(this.files[0]);
+        });
+
+        // 取得座標資訊
+        var startPos;
+        var geoSuccess = function(position) {
+          startPos = position;
+          document.getElementById('latitude').value = startPos.coords.latitude;
+          document.getElementById('longitude').value = startPos.coords.longitude;
+          M.updateTextFields();
+        };
+        var geoError = function(position) {
+          console.log('Error occurred. Error code: ' + error.code);
+        };
+        navigator.geolocation.getCurrentPosition(geoSuccess, geoError);        
+
+      };
+    </script>
+  </head>
+  <body>
+    <h1 class="center-align">CSI 訊號收集</h1>
+
+    <div class="container">
+      <div class="row">
+        <form action="" class="col offset-s1 s10">
+          <div class="row">
+            <div class="input-field col s12">
+              <input type="hidden" name="imgURI1" id="imgURI1" />
+              <input
+                placeholder="場地"
+                id="task_name"
+                name="task_name"
+                type="text"
+                class="validate"
+                required="true"
+              />
+              <label for="task_name">請說明測試場地資訊</label>
+              <span
+                class="helper-text"
+                data-error="必填欄位"
+                data-success="right"
+              ></span>
+            </div>
+            <div class="input-field col s6">
+                <input
+                id="longitude"
+                name="longitude"
+                type="text"
+                readonly="true"
+              />
+              <label for="longitude">經度</label>
+            </div>
+            <div class="input-field col s6">
+                <input
+                id="latitude"
+                name="latitude"
+                type="text"
+                readonly="true"
+              />
+              <label for="latitude">緯度</label>
+            </div>
+            <div class="input-field col s6">
+              <input
+                placeholder="房長"
+                id="house_length"
+                name="house_length"
+                type="text"
+                class="validate"
+                required="true"
+              />
+              <label for="house_length">房長（公分）</label>
+              <span
+                class="helper-text"
+                data-error="必填欄位"
+                data-success="right"
+              ></span>
+            </div>
+            <div class="input-field col s6">
+              <input
+                placeholder="房寬"
+                id="house_width"
+                name="house_width"
+                type="text"
+                class="validate"
+                required="true"
+              />
+              <label for="house_length">房寬（公分）</label>
+              <span
+                class="helper-text"
+                data-error="必填欄位"
+                data-success="right"
+              ></span>
+            </div>
+            <div class="input-field col s12">
+              <input
+                placeholder="人數"
+                id="house_width"
+                name="house_width"
+                type="text"
+                class="validate"
+                required="true"
+              />
+              <label for="house_length">人數</label>
+              <span
+                class="helper-text"
+                data-error="必填欄位"
+                data-success="right"
+              ></span>
+            </div>
+            <div class="input-field col s12">
+                <textarea id="comment" class="materialize-textarea"></textarea>
+                <label for="comment">其他補充標籤（以 , 區隔）</label>
+              </div>            
+          </div>
+          <div class="row">
+            <div class="file-field input-field s12">
+              <div class="btn">
+                <i class="large material-icons">add_a_photo</i>
+                <input
+                  id="imageFile1"
+                  type="file"
+                  accept="image/*;capture=camera"
+                />
+              </div>
+              <div class="file-path-wrapper">
+                <input
+                  class="file-path validate"
+                  type="text"
+                  placeholder="請站在四個角落的其中一點進行拍照"
+                />
+              </div>
+              <div class="row">
+                <img
+                  src=""
+                  id="image1"
+                  class="col offset-s1 s10"
+                  style="max-width: 90%"
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
